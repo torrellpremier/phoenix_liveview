@@ -25,7 +25,13 @@
   * live_file_input/2 is used to generate the HTML for a file upload form field
   * wrap it in a 'phx-drop-target' divt to enable drag-and-drop file uploads
   * check out the 'consume_uploaded_entry/3' method in the form_component.ex file - this is where we would upload data to an S3 bucket or some shit (https://www.poeticoding.com/aws-s3-in-elixir-with-exaws/)
-
+  * we can create stateless (function) and stateful (live) components just like in react
+  * a function component is a function that takes in an 'assigns' argument and returns a HEEx template
+  * function components are implemented in modules that use the 'Phoenix.Component' behavior, which gives us convenient syntax for rendering
+  * when created the component for the module, use 'alias __MODULE__.Component' to enable you to call it from the template, like this: '<Component.hero content="..." />'
+  * Slots allow us handle custom HTML to be rendered with certain components, or rendering dynamic content within a static tag implemented by a component
+  * in markup, place the Slot inside the function component: <Component.example><div>Example Slot</div></Component.example>' and in the component code, access it with 'render_slot(@inner_block)'
+  * Phoenix.HTML functions are used to help render unicode characters
 
 To start your Phoenix server:
 
