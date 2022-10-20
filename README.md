@@ -32,6 +32,13 @@
   * Slots allow us handle custom HTML to be rendered with certain components, or rendering dynamic content within a static tag implemented by a component
   * in markup, place the Slot inside the function component: <Component.example><div>Example Slot</div></Component.example>' and in the component code, access it with 'render_slot(@inner_block)'
   * Phoenix.HTML functions are used to help render unicode characters
+  * when liveview starts a live component in the parent view's process, the following callbackas are called, in order: 'preload/1', 'mount/1', 'update/2', 'render/1'
+  * then, during subsequent renders of live components, the following callbackas are called, in order: 'preload/1', 'update/2', 'render/1'
+  * the 'preload/1' function lets live view load all the components of the same type at once
+  * as live component updates skip the 'mount/1' callback, the 'update/2' function is the safest place to establish the component's initial state
+  * all live components require a single root element in their HTML templates (e.g. <div />)
+  * <.live_component module={@module_name} id={@id}/> to render a live component in a HTML template
+  * you can send messages from a live component to its parent using standard elixir message passing send(self(), <msg>) - we'll implement a handle_info/2 in the parent live view to handle it
 
 To start your Phoenix server:
 
