@@ -14,8 +14,7 @@ defmodule PentoWeb.DemographicLive.Form do
   end
 
   def handle_event("save", %{"demographic" => demographic_params}, socket) do
-    send(self(), :message_from_event_sent)
-    {:noreply, socket}
+    {:noreply, save_demographic(socket, demographic_params)}
   end
 
   defp assign_demographic(%{assigns: %{current_user: current_user}} = socket) do
