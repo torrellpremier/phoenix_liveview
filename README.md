@@ -39,6 +39,8 @@
   * all live components require a single root element in their HTML templates (e.g. <div />)
   * <.live_component module={@module_name} id={@id}/> to render a live component in a HTML template
   * you can send messages from a live component to its parent using standard elixir message passing send(self(), <msg>) - we'll implement a handle_info/2 in the parent live view to handle it
+  * use reducers over raw socket interactions in live views to maintain your code organisation
+  * extract common helpers by refactoring with '__using__' - see 'pento_web/pento_web.ex' & 'pento_web/bar_chart.ex'
 
 To start your Phoenix server:
 
