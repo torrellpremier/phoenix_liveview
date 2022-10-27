@@ -41,6 +41,12 @@
   * you can send messages from a live component to its parent using standard elixir message passing send(self(), <msg>) - we'll implement a handle_info/2 in the parent live view to handle it
   * use reducers over raw socket interactions in live views to maintain your code organisation
   * extract common helpers by refactoring with '__using__' - see 'pento_web/pento_web.ex' & 'pento_web/bar_chart.ex'
+  * Phoenix.PubSub is used to publis events to send messages to every other process that expresses interest, including live views
+  * Phoenix.Presence can notify you when users interact with your site - e.g. how many users are live right now: check out pento/presence.ex
+  * Make sure you add the Presence module to the appliation's children, so it gets started on app start
+  * Only subscribe a live view to a pubsub when the socket is connected (if connected?(socket))
+  * Make sure your components are built/initialised using functional reducers, as the updates will be passed through the same flow as the initialisation, barring mount/1
+  * use the function naming convention 'maybe' (e.g. maybe_track_user/1) to mark the function as conditional
 
 To start your Phoenix server:
 

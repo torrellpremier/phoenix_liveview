@@ -3,13 +3,13 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   use PentoWeb, :chart_live
 
   alias Pento.Catalog
-  alias Contex.Plot
 
   def update(assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
      |> assign_age_group_filter
+     |> assign_gender_filter
      |> assign_products_with_average_ratings
      |> assign_dataset
      |> assign_chart
@@ -20,6 +20,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     {:noreply,
      socket
      |> assign_age_group_filter(age_group_filter)
+     |> assign_gender_filter
      |> assign_products_with_average_ratings
      |> assign_dataset
      |> assign_chart
@@ -38,6 +39,23 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
 
   def assign_age_group_filter(socket, age_group_filter) do
     assign(socket, :age_group_filter, age_group_filter)
+  end
+
+  def assign_age_group_filter(%{assigns: %{age_group_filter: age_group_filter}} = socket) do
+    assign(socket, :age_group_filter, age_group_filter)
+  end
+
+  def assign_age_group_filter(socket) do
+    socket
+    |> assign(:age_group_filter, "all")
+  end
+
+  def assign_gender_filter(%{assigns: %{gender_filter: gender_filter}} = socket) do
+    assign(socket, :gender_filter, gender_filter)
+  end
+
+  def assign_gender_filter(socket) do
+    assign(socket, :gender_filter, "all")
   end
 
   def assign_chart_svg(%{assigns: %{chart: chart}} = socket) do
@@ -60,11 +78,6 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   defp assign_chart(%{assigns: %{dataset: dataset}} = socket) do
     socket
     |> assign(:chart, make_bar_chart(dataset))
-  end
-
-  defp assign_age_group_filter(socket) do
-    socket
-    |> assign(:age_group_filter, "all")
   end
 
   defp title do
